@@ -13,6 +13,7 @@ class  User{
     }
 }
 
+
 let Oscar = new User("Oscar", "Pedersen", 20, "Male", "Oscar123", "password1", "oscar123@gmail.com", [Mike], [Christian, Kristine], []);
 let Mike = new User ("Mike", "Jensen", 21, "Male", "Mike123", "password2", "Jensen123@gmail.com", [Oscar, Kristine, Christian], [Anna], []);
 let Christian = new User("Christian", "Bredgaard", 20, "Male", "Chistian123", "password3", "Bredgaard123@gmail.com", [Anna], [Oscar, Mike]);
