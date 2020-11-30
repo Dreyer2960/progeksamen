@@ -6,10 +6,20 @@ const lastname = document.getElementById('lastname')
 const dot = document.getElementById('dot')
 const cpr = document.getElementById('cpr');
 
+let subValidated = true;
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     
+
     checkInputs();
+
+    if(subValidated==true){
+        location.href = "../Frontend/Homepage.html";
+    } else {
+        return false;
+    }
+
 });
    
     function checkInputs() {
@@ -20,14 +30,16 @@ form.addEventListener('submit', (e) => {
         const dotValue = dot.value
         const cprValue = cpr.value
 
+        subValidated = true;
+
         if (emailValue === '') {
             setErrorFor(email, 'E-mail cannot be blank');
         } else {
             setSuccesFor(email);
         }
 
-        if (passwordValue === '') {
-            setErrorFor(password, 'Password cannot be blank');
+       /* if (passwordValue === '') {
+            setErrorFor(password, 'Password cannot be blank');}
         } else if (passwordValue.length >= 15) {
             setErrorFor(password, 'Password cannot be longer than 14 characters')
         } else if (passwordValue.length <= 6) {
@@ -35,7 +47,7 @@ form.addEventListener('submit', (e) => {
         } else {
             setSuccesFor(password);
         } 
-
+*/
         if (firstnameValue === '') {
             setErrorFor(firstname, 'First name cannot be blank');
         } else {
@@ -59,6 +71,7 @@ form.addEventListener('submit', (e) => {
         } else {
             setSuccesFor(cpr);
         }
+
 }
 
 password.addEventListener("keyup", passValidate) 
@@ -73,8 +86,10 @@ function passValidate() {
         setErrorFor(password, 'Password cannot be shorter than 7 characters')
     } else {
         setSuccesFor(password);
+        subValidated = true;
     }
 }
+
 
 
 function setErrorFor(input, message) {
@@ -84,13 +99,28 @@ function setErrorFor(input, message) {
     small.innerText = message;
 
     formControl.className = 'form-control error';
+
+    subValidated = false;
 }
+
 
 function setSuccesFor(input) {
     const formControl = input.parentElement;
     formControl.className = 'form-control succes';
-}
 
+};
+
+
+
+/*
+document.getElementById("validateSubmit").onclick = function (e) {
+    if (setSuccesFor()) {
+        location.href = "../Frontend/Homepage.html";
+    } else {
+        checkInputs();
+        e.preventDefault();
+    }
+}*/
 
 
 
