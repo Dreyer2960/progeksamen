@@ -1,10 +1,12 @@
 const form  = document.getElementById('form')
 const email = document.getElementById('email')
 const password = document.getElementById('password')
+const confirmPassword = document.getElementById('confirm')
 const firstname = document.getElementById('firstname')
 const lastname = document.getElementById('lastname')
 const dot = document.getElementById('dot')
-const cpr = document.getElementById('cpr');
+const gender = document.getElementById('gender');
+
 
 let subValidated = true;
 
@@ -30,7 +32,7 @@ form.addEventListener('submit', (e) => {
         const firstnameValue = firstname.value
         const lastnameValue = lastname.value
         const dotValue = dot.value
-        const cprValue = cpr.value
+        
 
         subValidated = true;
 
@@ -50,6 +52,12 @@ form.addEventListener('submit', (e) => {
             setSuccesFor(password);
         } 
 */
+        if(password.value != confirmPassword.value){
+            setErrorFor(confirmPassword, 'Passwords does not match')
+        } else {
+            setSuccesFor(confirmPassword)
+        }
+
         if (firstnameValue === '') {
             setErrorFor(firstname, 'First name cannot be blank');
         } else {
@@ -66,12 +74,6 @@ form.addEventListener('submit', (e) => {
             setErrorFor(dot, 'Date of birth cannot be blank');
         } else {
             setSuccesFor(dot);
-        }
-
-        if (cprValue === '') {
-            setErrorFor(cpr, 'CPR cannot be blank');
-        } else {
-            setSuccesFor(cpr);
         }
 
 }
@@ -113,7 +115,11 @@ function setSuccesFor(input) {
 };
 
 function saveName(){
+    localStorage.setItem("email", JSON.stringify(email.value))
     localStorage.setItem("Firstname", JSON.stringify(firstname.value))
+    localStorage.setItem("Lastname", JSON.stringify(lastname.value))
+    localStorage.setItem("Dateofbirth", JSON.stringify(dot.value))
+    localStorage.setItem("Gender", JSON.stringify(gender.value))
 }
 
 
