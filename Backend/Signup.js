@@ -14,11 +14,13 @@ form.addEventListener('submit', (e) => {
 
     checkInputs();
 
+    saveName();
+
     if(subValidated==true){
         location.href = "../Frontend/Homepage.html";
     } else {
         return false;
-    }
+    };
 
 });
    
@@ -110,6 +112,9 @@ function setSuccesFor(input) {
 
 };
 
+function saveName(){
+    localStorage.setItem("Firstname", JSON.stringify(firstname.value))
+}
 
 
 /*
