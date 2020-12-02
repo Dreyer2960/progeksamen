@@ -7,7 +7,7 @@ function getStorage(){
     let getLastname = JSON.parse(getStorage2);
     document.getElementById("lName").innerHTML = getLastname;
 
-    let getStorage3 = localStorage.getItem("email");
+    let getStorage3 = localStorage.getItem("Email");
     let getEmail = JSON.parse(getStorage3);
     document.getElementById("e-mail").innerHTML = getEmail;
 

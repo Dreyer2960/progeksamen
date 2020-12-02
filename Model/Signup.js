@@ -115,7 +115,7 @@ function setSuccesFor(input) {
 };
 
 function saveName(){
-    localStorage.setItem("email", JSON.stringify(email.value))
+    localStorage.setItem("Email", JSON.stringify(email.value))
     localStorage.setItem("Firstname", JSON.stringify(firstname.value))
     localStorage.setItem("Lastname", JSON.stringify(lastname.value))
     localStorage.setItem("Dateofbirth", JSON.stringify(dot.value))
