@@ -28,12 +28,12 @@ function loginInput(loginUser){
    .then(data => {  
        if(data == "Succes"){
            console.log("login succesful")
+           localStorage.clear();
+        localStorage.setItem("loggedInUser", "loggedIn")
        location.href = "../View/Homepage.html"
        } else if (data == "Fuckingshit"){
            alert("Username or Password is wrong")
        }
-   //alert('Success:', data);
-     
    })
    .catch((error) => {
      console.error('Error:', error);

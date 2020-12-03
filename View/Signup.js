@@ -6,6 +6,7 @@ const firstname = document.getElementById('firstname')
 const lastname = document.getElementById('lastname')
 const dot = document.getElementById('dot')
 const gender = document.getElementById('gender');
+const username = document.getElementById('username');
 
 
 
@@ -15,6 +16,7 @@ let subValidated = true;
 form.addEventListener('submit', (e) => {
     let user = {
         Email: email.value,
+        Username: username.value,
         Password: password.value,
         Firstname: firstname.value,
         Lastname: lastname.value,
@@ -45,6 +47,7 @@ debugger
         const firstnameValue = firstname.value
         const lastnameValue = lastname.value
         const dotValue = dot.value
+        const usernameValue = username.value
         
 
         subValidated = true;
@@ -55,6 +58,11 @@ debugger
             setSuccesFor(email);
         }
 
+        if (usernameValue === '') {
+            setErrorFor(username, 'Username cannot be blank');
+        } else {
+            setSuccesFor(username);
+        }
        /* if (passwordValue === '') {
             setErrorFor(password, 'Password cannot be blank');}
         } else if (passwordValue.length >= 15) {

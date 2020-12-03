@@ -22,7 +22,7 @@ server.post("/login", (req, res) => {
     let user = JSON.parse(fs.readFileSync('../Storage/user1.json'))
    
     for(var i=0; i<user.length; i++){
-        if(req.body.loginUsername == user[i].Firstname && req.body.loginPassword == user[i].Password){
+        if(req.body.loginUsername == user[i].Username && req.body.loginPassword == user[i].Password){
             console.log("hej igen")
             res.json("Succes")
         } else {
