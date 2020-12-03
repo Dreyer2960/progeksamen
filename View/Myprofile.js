@@ -1,4 +1,4 @@
-function getStorage(){
+/*function getStorage(){
     let getStorage1 = localStorage.getItem("Firstname");
     let getFirstname = JSON.parse(getStorage1);
     document.getElementById("fName").innerHTML = getFirstname;
@@ -20,4 +20,4 @@ function getStorage(){
     document.getElementById("gender").innerHTML = getGender;
 }
 
-window.onload = getStorage;
+window.onload = getStorage;*/

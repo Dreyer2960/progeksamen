@@ -6,3 +6,9 @@ window.onload = function loadCorrect(){
         console.log("It do be working tho")
     }
 }
+
+
+function logout(){
+    localStorage.clear();
+    location.href = "../View/Front1.html";
+}
