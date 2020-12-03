@@ -1,0 +1,44 @@
+[
+    {
+        "Email": "",
+        "Password": "",
+        "Firstname": "",
+        "Lastname": "",
+        "Dob": ""
+    },
+    {
+        "Email": "",
+        "Password": "",
+        "Firstname": "",
+        "Lastname": "",
+        "Dob": ""
+    },
+    {
+        "Email": "",
+        "Password": "",
+        "Firstname": "",
+        "Lastname": "",
+        "Dob": ""
+    },
+    {
+        "Email": "",
+        "Password": "",
+        "Firstname": "",
+        "Lastname": "",
+        "Dob": ""
+    },
+    {
+        "Email": "pedr20ab@student.cbs.dk",
+        "Password": "demeter",
+        "Firstname": "Peter",
+        "Lastname": "Dreyer",
+        "Dob": "2000-02-01"
+    },
+    {
+        "Email": "pedr20ab@student.cbs.dk",
+        "Password": "demeter",
+        "Firstname": "Peter",
+        "Lastname": "Dreyer",
+        "Dob": "2000-02-01"
+    }
+]

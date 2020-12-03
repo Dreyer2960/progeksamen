@@ -8,18 +8,28 @@ const dot = document.getElementById('dot')
 const gender = document.getElementById('gender');
 
 
+
+
 let subValidated = true;
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
+    let user = {
+        Email: email.value,
+        Password: password.value,
+        Firstname: firstname.value,
+        Lastname: lastname.value,
+        Dob: dot.value
+    }
     e.preventDefault();
     
 
-    checkInputs();
+    await checkInputs();
 
-    saveName();
 
+    await saveUser(user);
+debugger
     if(subValidated==true){
-        location.href = "../Frontend/Homepage.html";
+        location.href = "../View/Homepage.html";
     } else {
         return false;
     };
@@ -76,6 +86,7 @@ form.addEventListener('submit', (e) => {
             setSuccesFor(dot);
         }
 
+    
 }
 
 password.addEventListener("keyup", passValidate) 
@@ -114,14 +125,29 @@ function setSuccesFor(input) {
 
 };
 
-function saveName(){
-    localStorage.setItem("Email", JSON.stringify(email.value))
-    localStorage.setItem("Firstname", JSON.stringify(firstname.value))
-    localStorage.setItem("Lastname", JSON.stringify(lastname.value))
-    localStorage.setItem("Dateofbirth", JSON.stringify(dot.value))
-    localStorage.setItem("Gender", JSON.stringify(gender.value))
-}
 
+function saveUser(user){
+     console.log(user);
+        fetch('http://localhost:3000/user', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    }).then(response => response.json()).then(data => 
+        {
+      alert('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    }
+
+/*
+function saveName(){
+    fetch('')
+}
+*/
 
 /*
 document.getElementById("validateSubmit").onclick = function (e) {
