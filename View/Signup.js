@@ -12,7 +12,7 @@ const gender = document.getElementById('gender');
 
 let subValidated = true;
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', (e) => {
     let user = {
         Email: email.value,
         Password: password.value,
@@ -20,20 +20,23 @@ form.addEventListener('submit', async (e) => {
         Lastname: lastname.value,
         Dob: dot.value
     }
+
     e.preventDefault();
     
 
-    await checkInputs();
+    checkInputs();
 
-
-    await saveUser(user);
+    saveUser(user);
+    
 debugger
+    
+/*
     if(subValidated==true){
         location.href = "../View/Homepage.html";
     } else {
-        return false;
-    };
-
+        return false;   
+}*/
+    
 });
    
     function checkInputs() {
@@ -86,7 +89,7 @@ debugger
             setSuccesFor(dot);
         }
 
-    
+
 }
 
 password.addEventListener("keyup", passValidate) 
@@ -134,14 +137,20 @@ function saveUser(user){
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
-    }).then(response => response.json()).then(data => 
-        {
-      alert('Success:', data);
+    }).then(res => res.json())
+    .then(data => {  
+        location.href = "../View/Homepage.html"
+    //alert('Success:', data);
+      
     })
     .catch((error) => {
       console.error('Error:', error);
-    });
+    })
     }
+
+
+
+
 
 /*
 function saveName(){

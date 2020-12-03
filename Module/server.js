@@ -11,18 +11,6 @@ server.listen(port, () => console.log(`Listening on port ${port}...`));
 
 server.use(bodyParser.json())
 
+const signUpController = require('../Controller/serverController')
 
-server.post("/user", (req,res) => {
-    console.log("hej")
-    console.log(req.body)
-    let dataarray = JSON.parse(fs.readFileSync('../Storage/user1.json'))
-    console.log(dataarray)
-    dataarray.push(req.body)
-    
-    
-    fs.writeFile('../Storage/user1.json', JSON.stringify(dataarray, null, 4), (err) => {
-        if (err) throw err;
-        console.log('Data written to file');
-    });
-    
-    })
+server.post("/user", signUpController)
