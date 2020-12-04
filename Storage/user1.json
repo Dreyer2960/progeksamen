@@ -6,5 +6,13 @@
         "Firstname": "Peter",
         "Lastname": "Dreyer",
         "Dob": "2000-02-01"
+    },
+    {
+        "Email": "peterdreyer44@gmail.com",
+        "Username": "Peter2860",
+        "Password": "artemis",
+        "Firstname": "Niels",
+        "Lastname": "Jensen",
+        "Dob": "2000-02-01"
     }
 ]

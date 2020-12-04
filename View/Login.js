@@ -10,6 +10,7 @@ function loginTY(){
     }
 
 
+    
     loginInput(loginUser);
 
 }
@@ -26,12 +27,13 @@ function loginInput(loginUser){
      body: JSON.stringify(loginUser),
    }).then(res => res.json())
    .then(data => {  
-       if(data == "Succes"){
+       if(data != "Fuckingshit"){
            console.log("login succesful")
            localStorage.clear();
         localStorage.setItem("loggedInUser", "loggedIn")
+        localStorage.setItem("userID", JSON.stringify(data))
        location.href = "../View/Homepage.html"
-       } else if (data == "Fuckingshit"){
+       } if (data == "Fuckingshit"){
            alert("Username or Password is wrong")
        }
    })
