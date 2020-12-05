@@ -11,18 +11,18 @@ let profileID = JSON.parse(localStorage.getItem("userID"))
 
 
 window.onload = function showProfile(){
-    username.innerHTML = profileID[0].Username;
-    fName.innerHTML = profileID[0].Firstname;
-    lName.innerHTML = profileID[0].Lastname;
-    email.innerHTML = profileID[0].Email;
-    dot.innerHTML = profileID[0].Dob;
+    username.innerHTML = profileID.Username;
+    fName.innerHTML = profileID.Firstname;
+    lName.innerHTML = profileID.Lastname;
+    email.innerHTML = profileID.Email;
+    dot.innerHTML = profileID.Dob;
 }
     
 
 function deleteProfile(){
 
     let deleteUser = {
-        deleteUsername: profileID[0].Username
+        deleteUsername: profileID.Username
     }
     console.log(deleteUser)
 

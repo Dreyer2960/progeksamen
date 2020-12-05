@@ -7,7 +7,7 @@ function loginController(req, res, next){
     for(var i=0; i<user.length; i++){
         if(req.body.loginUsername == user[i].Username && req.body.loginPassword == user[i].Password){
             console.log("hej igen")
-            res.json(user)  
+            res.json(user[i])
         } 
     } 
         console.log("failure")

@@ -36,13 +36,25 @@ server.post("/profile", (req, res) => {
 server.delete("/deleteprofile", (req, res) => {
     let deletedProfile = JSON.parse(fs.readFileSync('../Storage/user1.json'));
 
+let checking = true
+
     for(var i=0; i<deletedProfile.length; i++){
         if(req.body.deleteUsername == deletedProfile[i].Username){
-            console.log("hej igen")
+            console.log("delete this")
+            
+            deletedProfile.splice([i], 1)
+            console.log(deletedProfile)
+
+            fs.writeFile('../Storage/user1.json', JSON.stringify(deletedProfile, null, 4), (err) => {
+                if (err) throw err;
+                console.log('Data written to file');
+            });
+
             res.json("Wauw")
-        } else {
-            console.log("failure")
-            res.json("Nothing to delete")
+            checking = false
         } 
-    } 
+    } if (checking == true){
+        console.log("failure")
+        res.json("Nothing to delete")
+    }
 })
