@@ -147,10 +147,13 @@ function saveUser(user){
       body: JSON.stringify(user),
     }).then(res => res.json())
     .then(data => {  
-        location.href = "../View/Homepage.html"
-    //alert('Success:', data);
+        if(subValidated==true){
+            location.href = "../View/Homepage.html";
+            alert("Your account was created. Log in to start matching!")
+        } else {
+            return false;   
       
-    })
+    }})
     .catch((error) => {
       console.error('Error:', error);
     })

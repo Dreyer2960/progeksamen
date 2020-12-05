@@ -8,6 +8,7 @@ function signUpController(req, res, next){
     res.json(dataarray)
     
     
+    
     fs.writeFile('../Storage/user1.json', JSON.stringify(dataarray, null, 4), (err) => {
         if (err) throw err;
         console.log('Data written to file');
