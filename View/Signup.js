@@ -28,9 +28,13 @@ form.addEventListener('submit', (e) => {
 
     checkInputs();
 
+
+    if(subValidated==true){
     saveUser(user);
-    
-debugger
+    } else {
+        return false
+    }
+
     
 /*
     if(subValidated==true){
@@ -147,13 +151,15 @@ function saveUser(user){
       body: JSON.stringify(user),
     }).then(res => res.json())
     .then(data => {  
-        if(subValidated==true){
+        if(data != "Fail"){
             location.href = "../View/Homepage.html";
             alert("Your account was created. Log in to start matching!")
         } else {
-            return false;   
+            alert ("Username already exists.")
+            return false
+        }
       
-    }})
+    })
     .catch((error) => {
       console.error('Error:', error);
     })
