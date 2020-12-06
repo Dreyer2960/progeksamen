@@ -66,25 +66,20 @@ function goNext(alreadyLiked){
     for (var j = 0; j < alreadyLiked.length; j++) {
             if (alreadyLiked[j] == otherUsers[i].userName) {
                 likedAlready = true;
-                //i++
                 goNext(alreadyLiked);
         }
 
     } if(likedAlready==false){
 
-    //i++
     if(i>=otherUsers.length){
-        console.log(otherUsers[i])
         alert("Det er ikke flere at matche med. Tryk ok for at vende tilbage til forsiden.")
         location.href="../View/Homepage.html"
         
     } else if (i<otherUsers.length){
-        console.log(otherUsers[i])
         showUser(i);
     }
 }
 }
-
 
 
 function showUser(){
@@ -103,7 +98,6 @@ function likeUser(){
         Username: otherUsers[i].userName,
         Liked: otherUsers[i].liked
     }
-    console.log(likedUser);
        fetch('http://localhost:3000/likeUser', {
      method: 'POST', // or 'PUT'
      headers: {
@@ -116,14 +110,42 @@ function likeUser(){
      if(data != "Fail"){
          alert("It's a match! Go to 'My matches' to see more.")
         
-        let alreadyLiked = data;
+        let alreadyDisliked = data;
 
-         goNext(alreadyLiked);
-     } else {
+         goNext(alreadyDisliked);
+     } /*else {
          goNext();
-     }
+     }*/
    })
    .catch((error) => {
      console.error('Error:', error);
    })
    }
+
+
+function dislikeUser(){
+    let dislikedUser = {
+        Username: otherUsers[i].userName,
+    }
+    console.log(dislikedUser);
+       fetch('http://localhost:3000/dislikeUser', {
+     method: 'POST', // or 'PUT'
+     headers: {
+       'Content-Type': 'application/json',
+     },
+     body: JSON.stringify(dislikedUser),
+   }).then(res => res.json())
+   .then(data => {  
+    console.log(data)
+
+    let alreadyLiked = data;
+
+    if(data != "Fail"){
+        goNext(alreadyLiked)
+    }
+
+   })
+   .catch((error) => {
+     console.error('Error:', error);
+   })
+}
