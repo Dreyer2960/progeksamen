@@ -20,7 +20,9 @@ form.addEventListener('submit', (e) => {
         Password: password.value,
         Firstname: firstname.value,
         Lastname: lastname.value,
-        Dob: dot.value
+        Dob: dot.value,
+        Liked: [],
+        Disliked: []
     }
 
     e.preventDefault();

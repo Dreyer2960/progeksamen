@@ -3,6 +3,7 @@ const cors = require("cors");
 const server = express();
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const async = require('async');
 
 
 server.use(cors())
@@ -27,11 +28,14 @@ const deleteController = require('../Controller/deleteController')
 server.delete("/deleteprofile", deleteController)
 
 
-server.get("/likeUser", (req, res, next) => {
-    let likeArray1 = JSON.parse(fs.readFileSync('../Storage/likeUserArray.json'))
+server.post("/likedUsers", (req, res, next) => {
+    let opinionArray = JSON.parse(fs.readFileSync('../Storage/user1.json'))
 
-    res.json(likeArray1)
-
+    for(var i=0; i<opinionArray.length; i++){
+      if(req.body.loggedinUsername == opinionArray[i].Username){
+        res.json(opinionArray[i])
+      }
+    }
 })
 
 const likeController = require('../Controller/likeController')
@@ -40,14 +44,36 @@ server.post("/likeUser", likeController)
 
 
 server.post("/dislikeUser", (req, res, next) => {
-    let dislikeArray = JSON.parse(fs.readFileSync('../Storage/dislikeUserArray.json'))
+
+  let userArray = JSON.parse(fs.readFileSync('../Storage/user1.json'))
     
-    dislikeArray.push(req.body.Username)
+  console.log(userArray[0].Disliked)
 
-    fs.writeFile('../Storage/dislikeUserArray.json', JSON.stringify(dislikeArray, null, 4), (err) => {
-        if (err) throw err;
-    })
-
-    res.json(dislikeArray)
-
+  for(var i=0; i<userArray.length; i++){
+      if(req.body.currentUserUsername == userArray[i].Username){
+          (userArray[i].Disliked).push(req.body.Username)
+          fs.writeFile('../Storage/user1.json', JSON.stringify(userArray, null, 4), (err) => {
+              if (err) throw err;
+          })
+          res.json(userArray[i])
+      }
+  }
 })
+
+
+server.post("/myMatches", (req, res, next) => {
+  let opinionArray = JSON.parse(fs.readFileSync('../Storage/user1.json'))
+
+    for(var i=0; i<opinionArray.length; i++){
+      if(req.body.loggedinUsername == opinionArray[i].Username){
+        res.json(opinionArray[i])
+      }
+    }
+})
+
+
+/*server.get('/dislikeUser', (req, res, next) => {
+    let dislikeArray1 = JSON.parse(fs.readFileSync('../Storage/dislikeUserArray.json'))
+
+    res.json(dislikeArray1)
+})*/

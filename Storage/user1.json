@@ -5,14 +5,24 @@
         "Password": "demeter",
         "Firstname": "Peter",
         "Lastname": "Dreyer",
-        "Dob": "2000-02-01"
+        "Dob": "2000-02-01",
+        "Liked": [
+            "SQLguy123"
+        ],
+        "Disliked": [
+            "Magic22",
+            "Lorem77",
+            "Breadguard44"
+        ]
     },
     {
-        "Email": "peterdreyer44@gmail.com",
-        "Username": "Peter2860",
+        "Email": "thismaildoesnotexist@unreal.com",
+        "Username": "Niels2860",
         "Password": "artemis",
-        "Firstname": "Jens",
-        "Lastname": "Jensen",
-        "Dob": "2000-02-01"
+        "Firstname": "Niels",
+        "Lastname": "Nielsen",
+        "Dob": "2000-02-01",
+        "Liked": [],
+        "Disliked": []
     }
 ]

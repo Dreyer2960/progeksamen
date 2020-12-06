@@ -9,11 +9,11 @@ class  User{
     }
 }
 
-let loggedinID = JSON.parse(localStorage.getItem("userID"))
+let profileID = JSON.parse(localStorage.getItem("userID"))
 
 
 
-let Oscar = new User("Oscar", "Pedersen", 20, "Male", "SQLguy123", [loggedinID.Username, "Mike", "Christian"]);
+let Oscar = new User("Oscar", "Pedersen", 20, "Male", "SQLguy123", [profileID.Username, "Mike", "Christian"]);
 let Mike = new User ("Mike", "Jensen", 21, "Male", "Magic22", []);
 let Christian = new User("Christian", "Bredgaard", 20, "Male", "Breadguard44", []);
 let Anna = new User("Anna", "Nielsen", 22, "Female", "Lorem77", []);
@@ -29,22 +29,39 @@ const genderID = document.getElementById("genderID");
 
 let i=0;
 
+
+
 window.onload = function loadFirst(){
-           fetch('http://localhost:3000/likeUser'
-       ).then(res => res.json())
+    let loggedinUser = {
+        loggedinUsername: profileID.Username
+    }
+           fetch('http://localhost:3000/likedUsers', {
+           method: 'POST', // or 'PUT'
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(loggedinUser),
+         }).then(res => res.json())
        .then(data => {  
-        console.log(data)
+        console.log(data.Liked)
 
-        let alreadyLiked = data;
+        let opinionSet = data;
 
-        let likedAlready2 = false;
+        let opinionBeenSet = false;
 
-        for (var k = 0; k < alreadyLiked.length; k++) {
-            if (alreadyLiked[k] == otherUsers[i].userName) {
-                likedAlready2 = true;
-                goNext(alreadyLiked);
+        for (var k = 0; k < (opinionSet.Liked).length; k++) {
+            if (opinionSet.Liked[k] == otherUsers[i].userName) {
+                opinionBeenSet = true;
+                goNext(opinionSet);
         }
-    } if(likedAlready2 == false){
+    } 
+    for (var k = 0; k < (opinionSet.Disliked).length; k++) {
+        if (opinionSet.Disliked[k] == otherUsers[i].userName) {
+            opinionBeenSet = true;
+            goNext(opinionSet);
+        }
+    } 
+    if(opinionBeenSet == false){
         firstnameID.innerHTML = otherUsers[i].firstName;
         lastnameID.innerHTML = otherUsers[i].lastName;
         ageID.innerHTML = otherUsers[i].age;
@@ -54,22 +71,28 @@ window.onload = function loadFirst(){
        .catch((error) => {
          console.error('Error:', error);
        })
-       }
+    }
 
 
-function goNext(alreadyLiked){
+function goNext(alreadyClicked){
     i++
-    let likedAlready = false;
-    console.log(alreadyLiked)
+    let clickedAlready = false;
+    console.log(alreadyClicked.Liked)
     console.log(otherUsers[i].userName)
 
-    for (var j = 0; j < alreadyLiked.length; j++) {
-            if (alreadyLiked[j] == otherUsers[i].userName) {
-                likedAlready = true;
-                goNext(alreadyLiked);
+    for (var j = 0; j < (alreadyClicked.Liked).length; j++) {
+            if (alreadyClicked.Liked[j] == otherUsers[i].userName) {
+                clickedAlready = true;
+                goNext(alreadyClicked);
         }
 
-    } if(likedAlready==false){
+    } for (var j = 0; j < (alreadyClicked.Disliked).length; j++) {
+        if (alreadyClicked.Disliked[j] == otherUsers[i].userName){
+            clickedAlready = true;
+                goNext(alreadyClicked);
+        }
+    }
+    if(clickedAlready==false){
 
     if(i>=otherUsers.length){
         alert("Det er ikke flere at matche med. Tryk ok for at vende tilbage til forsiden.")
@@ -83,8 +106,6 @@ function goNext(alreadyLiked){
 
 
 function showUser(){
-
-    
     firstnameID.innerHTML = otherUsers[i].firstName
     lastnameID.innerHTML = otherUsers[i].lastName
     ageID.innerHTML = otherUsers[i].age
@@ -96,8 +117,10 @@ function showUser(){
 function likeUser(){
     let likedUser = {
         Username: otherUsers[i].userName,
-        Liked: otherUsers[i].liked
+        Liked: otherUsers[i].liked,
+        currentUserUsername: profileID.Username
     }
+    //console.log(likedUser.Liked)
        fetch('http://localhost:3000/likeUser', {
      method: 'POST', // or 'PUT'
      headers: {
@@ -106,15 +129,56 @@ function likeUser(){
      body: JSON.stringify(likedUser),
    }).then(res => res.json())
    .then(data => {  
+       console.log(data)
 
-     if(data != "Fail"){
+       let checking = true;
+
+       let checking2 = false;
+   
+       let checking3 = false;
+   
+        console.log(otherUsers[i].liked)
+       for (var j = 0; j < (likedUser.Liked).length; j++) {
+           for (var k = 0; k < data.length; k++) {
+               if (likedUser.Liked[i] == data[k].Username) {
+                   checking2 = true
+                   //console.log(checking2)
+               }
+           }
+       }
+
+       for(var l=0; l<(data.Liked).length; l++){
+           if(otherUsers[i].Username == data.Liked[l]) {
+               
+               checking3 = true
+               //console.log(checking3)
+           }
+       }
+       if(checking2 == true && checking3 == true){
+           checking=false
+           console.log(userArray[i])
+
+           alert("It's a match! Go to 'My matches' to see more.")
+        
+           let alreadyClicked = data;
+           console.log(alreadyClicked.Liked)
+            goNext(alreadyClicked);
+
+       } else if(checking == true) {
+        let alreadyClicked = data;
+           goNext(alreadyClicked);
+       }
+
+       /*
+     if(data != "No match"){
          alert("It's a match! Go to 'My matches' to see more.")
         
-        let alreadyDisliked = data;
-
-         goNext(alreadyDisliked);
-     } /*else {
-         goNext();
+        let alreadyClicked = data;
+        console.log(alreadyClicked.Liked)
+         goNext(alreadyClicked);
+     } else {
+        let alreadyClicked = data;
+         goNext(alreadyClicked);
      }*/
    })
    .catch((error) => {
@@ -126,6 +190,7 @@ function likeUser(){
 function dislikeUser(){
     let dislikedUser = {
         Username: otherUsers[i].userName,
+        currentUserUsername: profileID.Username
     }
     console.log(dislikedUser);
        fetch('http://localhost:3000/dislikeUser', {
@@ -140,12 +205,25 @@ function dislikeUser(){
 
     let alreadyLiked = data;
 
-    if(data != "Fail"){
-        goNext(alreadyLiked)
-    }
+    goNext(alreadyLiked)
 
    })
    .catch((error) => {
      console.error('Error:', error);
    })
+}
+
+
+function loadDislike(){
+    fetch('http://localhost:3000/dislikeUser'
+).then(res => res.json())
+.then(data => {  
+ console.log(data)
+    let dislikes = data;
+
+
+})
+.catch((error) => {
+  console.error('Error:', error);
+})
 }
