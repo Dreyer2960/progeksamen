@@ -22,7 +22,8 @@ form.addEventListener('submit', (e) => {
         Lastname: lastname.value,
         Dob: dot.value,
         Liked: [],
-        Disliked: []
+        Disliked: [],
+        Matches: []
     }
 
     e.preventDefault();
@@ -154,7 +155,7 @@ function saveUser(user){
     }).then(res => res.json())
     .then(data => {  
         if(data != "Fail"){
-            location.href = "../View/Homepage.html";
+            location.href = "../View/Front1.html";
             alert("Your account was created. Log in to start matching!")
         } else {
             alert ("Username already exists.")

@@ -16,11 +16,13 @@ let profileID = JSON.parse(localStorage.getItem("userID"))
 let Oscar = new User("Oscar", "Pedersen", 20, "Male", "SQLguy123", [profileID.Username, "Mike", "Christian"]);
 let Mike = new User ("Mike", "Jensen", 21, "Male", "Magic22", []);
 let Christian = new User("Christian", "Bredgaard", 20, "Male", "Breadguard44", []);
-let Anna = new User("Anna", "Nielsen", 22, "Female", "Lorem77", []);
+let Anna = new User("Anna", "Nielsen", 22, "Female", "Lorem77", [profileID.Username, "Oscar"]);
 let Kristine = new User("Kristine", "Andersen", 21, "Female", "Ipsum88", []);
 
 
 let otherUsers = [Oscar, Mike, Christian, Anna, Kristine];
+
+
 
 const firstnameID = document.getElementById("firstnameID");
 const lastnameID = document.getElementById("lastnameID");
@@ -76,9 +78,13 @@ window.onload = function loadFirst(){
 
 function goNext(alreadyClicked){
     i++
+    if(i>=otherUsers.length){
+        alert("Det er ikke flere at matche med. Tryk ok for at vende tilbage til forsiden.")
+        location.href="../View/Homepage.html"
+    }
+    console.log(i)
     let clickedAlready = false;
-    console.log(alreadyClicked.Liked)
-    console.log(otherUsers[i].userName)
+    //console.log(otherUsers[i].userName)
 
     for (var j = 0; j < (alreadyClicked.Liked).length; j++) {
             if (alreadyClicked.Liked[j] == otherUsers[i].userName) {
@@ -106,6 +112,7 @@ function goNext(alreadyClicked){
 
 
 function showUser(){
+    console.log(otherUsers[i].firstName)
     firstnameID.innerHTML = otherUsers[i].firstName
     lastnameID.innerHTML = otherUsers[i].lastName
     ageID.innerHTML = otherUsers[i].age
@@ -118,6 +125,7 @@ function likeUser(){
     let likedUser = {
         Username: otherUsers[i].userName,
         Liked: otherUsers[i].liked,
+        Firstname: otherUsers[i].firstName,
         currentUserUsername: profileID.Username
     }
     //console.log(likedUser.Liked)
@@ -129,58 +137,49 @@ function likeUser(){
      body: JSON.stringify(likedUser),
    }).then(res => res.json())
    .then(data => {  
-       console.log(data)
+       let alreadyClicked = data;
+        console.log(otherUsers[i].userName);
 
-       let checking = true;
+        let checking = true;
 
-       let checking2 = false;
-   
-       let checking3 = false;
-   
-        console.log(otherUsers[i].liked)
-       for (var j = 0; j < (likedUser.Liked).length; j++) {
-           for (var k = 0; k < data.length; k++) {
-               if (likedUser.Liked[i] == data[k].Username) {
-                   checking2 = true
-                   //console.log(checking2)
-               }
-           }
-       }
-
-       for(var l=0; l<(data.Liked).length; l++){
-           if(otherUsers[i].Username == data.Liked[l]) {
-               
-               checking3 = true
-               //console.log(checking3)
-           }
-       }
-       if(checking2 == true && checking3 == true){
-           checking=false
-           console.log(userArray[i])
-
-           alert("It's a match! Go to 'My matches' to see more.")
-        
-           let alreadyClicked = data;
-           console.log(alreadyClicked.Liked)
-            goNext(alreadyClicked);
-
-       } else if(checking == true) {
-        let alreadyClicked = data;
-           goNext(alreadyClicked);
-       }
-
-       /*
-     if(data != "No match"){
+    /*for(let j=0; j>(alreadyClicked.Matches).length; j++){
+     if(alreadyClicked.Matches[j] == otherUsers[i].userName){
          alert("It's a match! Go to 'My matches' to see more.")
         
-        let alreadyClicked = data;
+        let matchedName = JSON.parse(localStorage.getItem("matchName"));
+        if(matchedName == null){
+            matchedName = [];
+        }
+        matchedName.push(otherUsers[i].firstName);
+        JSON.stringify(localStorage.setItem("matchName", matchedName));
+*/
+        /*for(let w=0; w<(alreadyClicked.Matches).length; w++){
+            if(alreadyClicked.Matches[w] == otherUsers[i].userName){
+                console.log("Please")
+            }
+        }*/
+
+
+    for(let j=0; j<(alreadyClicked.Matches).length; j++){
+        if(alreadyClicked.Matches[j] == otherUsers[i].userName){
+        alert("It's a match! Go to 'My matches' to see more.");
+
+        let matchedName = JSON.parse(localStorage.getItem("matchName"));
+        if(matchedName == null){
+            matchedName = [];
+        }
+        matchedName.push(otherUsers[i].firstName);
+        localStorage.setItem("matchName", JSON.stringify(matchedName));
+
         console.log(alreadyClicked.Liked)
+        checking = false;
+        goNext(alreadyClicked);
+        }
+     } if(checking == true){
+         console.log("eh")
          goNext(alreadyClicked);
-     } else {
-        let alreadyClicked = data;
-         goNext(alreadyClicked);
-     }*/
-   })
+    }
+})
    .catch((error) => {
      console.error('Error:', error);
    })
@@ -211,19 +210,4 @@ function dislikeUser(){
    .catch((error) => {
      console.error('Error:', error);
    })
-}
-
-
-function loadDislike(){
-    fetch('http://localhost:3000/dislikeUser'
-).then(res => res.json())
-.then(data => {  
- console.log(data)
-    let dislikes = data;
-
-
-})
-.catch((error) => {
-  console.error('Error:', error);
-})
 }

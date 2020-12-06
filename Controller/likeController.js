@@ -6,7 +6,7 @@ function likeController(req, res, next){
 
     let userArray = JSON.parse(fs.readFileSync('../Storage/user1.json'))
     
-    console.log(userArray[0].Liked)
+    //console.log(userArray[0].Liked)
 
     for(var i=0; i<userArray.length; i++){
         if(req.body.currentUserUsername == userArray[i].Username){
@@ -14,10 +14,10 @@ function likeController(req, res, next){
             fs.writeFile('../Storage/user1.json', JSON.stringify(userArray, null, 4), (err) => {
                 if (err) throw err;
             })
-            res.json(userArray[i])
+            //res.json(userArray[i])
 
 
-/*
+
             let checking = true;
 
             let checking2 = false;
@@ -42,12 +42,16 @@ function likeController(req, res, next){
                 }
             }
             if(checking2 == true && checking3 == true){
+                (userArray[i].Matches).push(req.body.Username)
+                fs.writeFile('../Storage/user1.json', JSON.stringify(userArray, null, 4), (err) => {
+                    if (err) throw err;
+                })
                 checking=false
-                console.log(userArray[i])
+                console.log(userArray[i].Matches)
                 res.json(userArray[i])
             } else if(checking == true) {
-                res.json(userArray[i] && "No match")
-            }*/
+                res.json(userArray[i])
+            }
         }
     }
 }

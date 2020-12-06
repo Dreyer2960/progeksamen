@@ -7,12 +7,10 @@
         "Lastname": "Dreyer",
         "Dob": "2000-02-01",
         "Liked": [
-            "SQLguy123"
         ],
         "Disliked": [
-            "Magic22",
-            "Lorem77",
-            "Breadguard44"
+        ],
+        "Matches": [
         ]
     },
     {
@@ -23,6 +21,7 @@
         "Lastname": "Nielsen",
         "Dob": "2000-02-01",
         "Liked": [],
-        "Disliked": []
+        "Disliked": [],
+        "Matches": []
     }
 ]

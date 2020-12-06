@@ -12,6 +12,7 @@ server.listen(port, () => console.log(`Listening on port ${port}...`));
 
 server.use(bodyParser.json())
 
+
 const signUpController = require('../Controller/serverController');
 const { error } = require("console");
 
