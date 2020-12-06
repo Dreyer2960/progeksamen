@@ -81,7 +81,10 @@ function likeUser(){
    .then(data => {  
      if(data == "It's a match"){
          alert("It's a match! Go to 'My matches' to see more.")
-     } 
+         goNext();
+     } else {
+         goNext();
+     }
    })
    .catch((error) => {
      console.error('Error:', error);
