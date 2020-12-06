@@ -14,7 +14,7 @@ function signUpController(req, res, next){
             checking = false
         }
         } 
-        if(checking = true){
+        if(checking == true){
         dataarray.push(req.body)
         res.json(dataarray)
         fs.writeFile('../Storage/user1.json', JSON.stringify(dataarray, null, 4), (err) => {

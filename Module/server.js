@@ -27,10 +27,17 @@ const deleteController = require('../Controller/deleteController')
 server.delete("/deleteprofile", deleteController)
 
 
+server.get("/likeUser", (req, res, next) => {
+    let likeArray1 = JSON.parse(fs.readFileSync('../Storage/likeUserArray.json'))
+
+    res.json(likeArray1)
+
+})
+
+
 server.post("/likeUser", (req, res, next) => {
 
     let likeArray = JSON.parse(fs.readFileSync('../Storage/likeUserArray.json'))
-    
     
 
     likeArray.push(req.body.Username)
@@ -41,11 +48,14 @@ server.post("/likeUser", (req, res, next) => {
 
     let userArray = JSON.parse(fs.readFileSync('../Storage/user1.json'));
 
+
+
     let checking = true;
 
     let checking2 = false;
 
     let checking3 = false;
+
 
     for (var i = 0; i < req.body.Liked.length; i++) {
         for (var j = 0; j < userArray.length; j++) {
@@ -61,9 +71,9 @@ server.post("/likeUser", (req, res, next) => {
             checking3 = true
         }
     } if(checking2 == true && checking3 == true){
-        res.json("It's a match")
+        res.json(likeArray)
     } else if(checking == true) {
         res.json("Fail")
     }
-
-})
+    }
+)

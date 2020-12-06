@@ -27,23 +27,52 @@ const lastnameID = document.getElementById("lastnameID");
 const ageID = document.getElementById("ageID");
 const genderID = document.getElementById("genderID");
 
-
+let i=0;
 
 window.onload = function loadFirst(){
-firstnameID.innerHTML = otherUsers[0].firstName;
-lastnameID.innerHTML = otherUsers[0].lastName;
-ageID.innerHTML = otherUsers[0].age;
-genderID.innerHTML = otherUsers[0].gender;
+           fetch('http://localhost:3000/likeUser'
+       ).then(res => res.json())
+       .then(data => {  
+        console.log(data)
 
-}
+        let alreadyLiked = data;
+
+        let likedAlready2 = false;
+
+        for (var k = 0; k < alreadyLiked.length; k++) {
+            if (alreadyLiked[k] == otherUsers[i].userName) {
+                likedAlready2 = true;
+                goNext(alreadyLiked);
+        }
+    } if(likedAlready2 == false){
+        firstnameID.innerHTML = otherUsers[i].firstName;
+        lastnameID.innerHTML = otherUsers[i].lastName;
+        ageID.innerHTML = otherUsers[i].age;
+        genderID.innerHTML = otherUsers[i].gender;
+    }
+       })
+       .catch((error) => {
+         console.error('Error:', error);
+       })
+       }
 
 
-
-
-let i=0
-
-function goNext(){
+function goNext(alreadyLiked){
     i++
+    let likedAlready = false;
+    console.log(alreadyLiked)
+    console.log(otherUsers[i].userName)
+
+    for (var j = 0; j < alreadyLiked.length; j++) {
+            if (alreadyLiked[j] == otherUsers[i].userName) {
+                likedAlready = true;
+                //i++
+                goNext(alreadyLiked);
+        }
+
+    } if(likedAlready==false){
+
+    //i++
     if(i>=otherUsers.length){
         console.log(otherUsers[i])
         alert("Det er ikke flere at matche med. Tryk ok for at vende tilbage til forsiden.")
@@ -54,20 +83,24 @@ function goNext(){
         showUser(i);
     }
 }
+}
+
 
 
 function showUser(){
-    //console.log(otherUsers[i])
+
+    
     firstnameID.innerHTML = otherUsers[i].firstName
     lastnameID.innerHTML = otherUsers[i].lastName
     ageID.innerHTML = otherUsers[i].age
     genderID.innerHTML = otherUsers[i].gender
-};
+}
+
 
 
 function likeUser(){
     let likedUser = {
-        Username: otherUsers[i].firstName,
+        Username: otherUsers[i].userName,
         Liked: otherUsers[i].liked
     }
     console.log(likedUser);
@@ -79,9 +112,13 @@ function likeUser(){
      body: JSON.stringify(likedUser),
    }).then(res => res.json())
    .then(data => {  
-     if(data == "It's a match"){
+
+     if(data != "Fail"){
          alert("It's a match! Go to 'My matches' to see more.")
-         goNext();
+        
+        let alreadyLiked = data;
+
+         goNext(alreadyLiked);
      } else {
          goNext();
      }
