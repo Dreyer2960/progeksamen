@@ -7,10 +7,17 @@
         "Lastname": "Dreyer",
         "Dob": "2000-02-01",
         "Liked": [
+            "SQLguy123",
+            "Lorem77",
+            "Ipsum88"
         ],
         "Disliked": [
+            "Magic22",
+            "Breadguard44"
         ],
         "Matches": [
+            "SQLguy123",
+            "Lorem77"
         ]
     },
     {

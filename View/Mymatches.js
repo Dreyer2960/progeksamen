@@ -1,11 +1,38 @@
+
+const table = document.getElementById("tableID");
+
 let profileID = JSON.parse(localStorage.getItem("userID"))
 
-const otherUsers = require('../View/Users')
-
-console.log(otherUsers)
 
 window.onload = function loadFirst(){
-    let loggedinUser = {
+
+  let matchedUsers = JSON.parse(localStorage.getItem("matchName"))
+
+  console.log(matchedUsers.length)
+
+  for(let i=0; i < matchedUsers.length; i++){
+
+  var table_row  = document.createElement('tr'); 
+  table_row.innerText = matchedUsers[i];
+  table.appendChild(table_row);
+  
+  var deleteButton = document.createElement('button');
+  deleteButton.innerText = "Delete Match";
+  deleteButton.onclick = deleteMatch();
+  table.appendChild(deleteButton);
+
+  var space = document.createElement('br');
+  table.appendChild(space);
+  }
+}
+  
+
+function deleteMatch(){
+
+}
+
+
+  /*let loggedinUser = {
         loggedinUsername: profileID.Username
     }
            fetch('http://localhost:3000/myMatches', {
@@ -42,9 +69,9 @@ window.onload = function loadFirst(){
         // add the newly created element and its content into the DOM 
         var currentDiv = document.getElementById("div1"); 
         document.body.insertBefore(newDiv, currentDiv); 
-        })*/
+        })
        })
        .catch((error) => {
          console.error('Error:', error);
-       })
-       }
+       })*/
+
