@@ -3,22 +3,25 @@ const table = document.getElementById("tableID");
 
 let profileID = JSON.parse(localStorage.getItem("userID"))
 
+let otherUsers = JSON.parse(localStorage.getItem("matchName"))
+
+
 
 window.onload = function loadFirst(){
 
-  let matchedUsers = JSON.parse(localStorage.getItem("matchName"))
+  for(let i=0; i < otherUsers.length; i++){
 
-  console.log(matchedUsers.length)
-
-  for(let i=0; i < matchedUsers.length; i++){
+    
 
   var table_row  = document.createElement('tr'); 
-  table_row.innerText = matchedUsers[i];
+  table_row.innerText = "You've mathed with " + otherUsers[i].firstName + "!";
   table.appendChild(table_row);
   
   var deleteButton = document.createElement('button');
   deleteButton.innerText = "Delete Match";
-  deleteButton.onclick = deleteMatch();
+  deleteButton.id = "buttonID"
+
+
   table.appendChild(deleteButton);
 
   var space = document.createElement('br');
@@ -27,51 +30,29 @@ window.onload = function loadFirst(){
 }
   
 
-function deleteMatch(){
+    const buttonID = document.getElementsById("buttonID")
 
-}
+    console.log(buttonID)
 
+    buttonID.addEventListener("click", function deleteMatch() {
 
-  /*let loggedinUser = {
-        loggedinUsername: profileID.Username
-    }
-           fetch('http://localhost:3000/myMatches', {
-           method: 'POST', // or 'PUT'
-           headers: {
-             'Content-Type': 'application/json',
-           },
-           body: JSON.stringify(loggedinUser),
-         }).then(res => res.json())
-       .then(data => {  
-        console.log(data)
-        let userMatches = data;
+    let matchID = {
+      otherUsername: otherUsers[i].userName,
+      profileUsername: profileID.Username
+  }
 
-        for(var i=0; i<(userMatches.Matches).length; i++){
-          var newDiv = document.createElement("div"); 
-        // and give it some content 
-        var newContent = document.createTextNode("You've matched with " + userMatches.Matches[i] + "!"); 
-        // add the text node to the newly created div
-        newDiv.appendChild(newContent);  
-      
-        // add the newly created element and its content into the DOM 
-        var currentDiv = document.getElementById("div1"); 
-        document.body.insertBefore(newDiv, currentDiv); 
-        }
-
-        /*(userMatches.Matches).forEach(function addElement (){
-        
-        var newDiv = document.createElement("div"); 
-        // and give it some content 
-        var newContent = document.createTextNode(userMatches.Matches); 
-        // add the text node to the newly created div
-        newDiv.appendChild(newContent);  
-      
-        // add the newly created element and its content into the DOM 
-        var currentDiv = document.getElementById("div1"); 
-        document.body.insertBefore(newDiv, currentDiv); 
-        })
-       })
-       .catch((error) => {
-         console.error('Error:', error);
-       })*/
-
+  fetch('http://localhost:3000/deleteMatch', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(matchID),
+    }).then(res => res.json())
+    .then(data => {  
+         console.log(data);
+ 
+ })
+    .catch((error) => {
+      console.error('Error:', error);
+    })
+});

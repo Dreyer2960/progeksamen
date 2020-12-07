@@ -70,7 +70,40 @@ server.post("/myMatches", (req, res, next) => {
         res.json(opinionArray[i])
       }
     }
-})
+});
+
+
+server.post("/deleteMatch", (req, res, next) => {
+  let userArray = JSON.parse(fs.readFileSync('../Storage/user1.json'))
+
+  for(var i=0; i<userArray.length; i++){
+    if(req.body.profileUsername == userArray[i].Username){
+        console.log("User found")
+        
+      for(var j=0; j<(userArray[i].Liked).length; j++){
+        if(req.body.otherUsername == userArray[i].Liked[j]){
+          let seeRemoved = userArray.splice((userArray[i].Liked[j]), 1)
+          console.log(seeRemoved)
+        }
+      }
+
+        /*
+
+        fs.writeFile('../Storage/user1.json', JSON.stringify(deletedProfile, null, 4), (err) => {
+            if (err) throw err;
+            console.log('Data written to file');
+        });
+
+        res.json("Wauw")
+        checking = false
+    } 
+} if (checking == true){
+    console.log("failure")
+    res.json("Nothing to delete")
+}*/
+
+}}})
+
 
 
 /*server.get('/dislikeUser', (req, res, next) => {

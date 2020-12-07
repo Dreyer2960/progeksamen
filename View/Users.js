@@ -142,23 +142,6 @@ function likeUser(){
 
         let checking = true;
 
-    /*for(let j=0; j>(alreadyClicked.Matches).length; j++){
-     if(alreadyClicked.Matches[j] == otherUsers[i].userName){
-         alert("It's a match! Go to 'My matches' to see more.")
-        
-        let matchedName = JSON.parse(localStorage.getItem("matchName"));
-        if(matchedName == null){
-            matchedName = [];
-        }
-        matchedName.push(otherUsers[i].firstName);
-        JSON.stringify(localStorage.setItem("matchName", matchedName));
-*/
-        /*for(let w=0; w<(alreadyClicked.Matches).length; w++){
-            if(alreadyClicked.Matches[w] == otherUsers[i].userName){
-                console.log("Please")
-            }
-        }*/
-
 
     for(let j=0; j<(alreadyClicked.Matches).length; j++){
         if(alreadyClicked.Matches[j] == otherUsers[i].userName){
@@ -168,7 +151,7 @@ function likeUser(){
         if(matchedName == null){
             matchedName = [];
         }
-        matchedName.push(otherUsers[i].firstName);
+        matchedName.push(otherUsers[i]);
         localStorage.setItem("matchName", JSON.stringify(matchedName));
 
         console.log(alreadyClicked.Liked)
