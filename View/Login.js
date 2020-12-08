@@ -27,13 +27,13 @@ function loginInput(loginUser){
      body: JSON.stringify(loginUser),
    }).then(res => res.json())
    .then(data => {  
-       if(data != "Fuckingshit"){
-           console.log("login succesful")
+       if(data != "Login fail"){
+           //console.log("login succesful")
            localStorage.clear();
         localStorage.setItem("loggedInUser", "loggedIn")
         localStorage.setItem("userID", JSON.stringify(data))
        location.href = "../View/Homepage.html"
-       } if (data == "Fuckingshit"){
+       } if (data == "Login fail"){
            alert("Username or Password is wrong")
        }
    })
